@@ -1,9 +1,10 @@
-# 📊 Portfolio Tracker
+# 📊 Personal Investment Portfolio Tracker
 
 ![Google Sheets](https://img.shields.io/badge/Google%20Sheets-34A853?logo=googlesheets&logoColor=white)
 ![Multi-currency](https://img.shields.io/badge/multi--currency-MYR%20%2B%20USD-blue)
 ![Live prices](https://img.shields.io/badge/prices-GOOGLEFINANCE-brightgreen)
 ![Alerts](https://img.shields.io/badge/alerts-Apps%20Script-f4b400)
+![License: MIT](https://img.shields.io/badge/license-MIT-yellow)
 
 A multi-currency portfolio tracker built in Google Sheets. Enter each trade once — every
 position, cost basis, fee, FX conversion, wallet balance and drawdown alert is derived from
@@ -279,3 +280,7 @@ Portfolio/
   bought at.
 - Emoji in the `Status` column may not survive a CSV export depending on your download
   path — the script matches on the `NN%` text, so alerts still work either way.
+
+## 📄 License
+
+MIT — see [LICENSE](LICENSE). Use it, fork it, ship it.
