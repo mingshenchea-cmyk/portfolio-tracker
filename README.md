@@ -4,9 +4,25 @@ A Google Sheets–based portfolio tracker for a mixed MYR/USD account. Positions
 fees, FX conversion, wallet cash and drawdown alerts are all derived from a single
 transaction log — enter a trade once and every other tab updates itself.
 
-![Dashboard](dashboard.png)
+## Dashboard
 
-**Live template:** _(https://docs.google.com/spreadsheets/d/1sdtHpAkVDW4RcZLudvA0g5mx7_t6h7nIyMtlKgXvKDk/edit?usp=sharing)_
+**Total net worth**
+
+![Total Net Worth](Dashboard/Total%20Net%20Worth.jpg)
+
+**Invested portfolio**
+
+![Invested Portfolio](Dashboard/Invested%20Portfolio.jpg)
+
+**Free portfolio**
+
+![Free Portfolio](Dashboard/Free%20Portfolio.jpg)
+
+**Total invested portfolio**
+
+![Total Invested Portfolio](Dashboard/Total%20Invested%20Portfolio.jpg)
+
+**Live template:** _https://docs.google.com/spreadsheets/d/1sdtHpAkVDW4RcZLudvA0g5mx7_t6h7nIyMtlKgXvKDk/edit?usp=sharing_
 
 > All figures in this repo are **sample data**. Tickers are real so the live price lookups
 > still work, but the holdings, quantities and amounts are not a real portfolio.
@@ -37,18 +53,18 @@ both in USD and MYR.
 | File | What it is |
 |---|---|
 | `Portfolio.xlsx` | Full workbook with formulas, charts and formatting |
-| `Portfolio/Portfolio - Dashboard.csv` | Summary tab, exported values |
-| `Portfolio/Portfolio - Holdings.csv` | Per-ticker position and P/L |
-| `Portfolio/Portfolio - Transactions.csv` | The source log |
-| `Portfolio/Portfolio - Alerts.csv` | Drawdown monitor |
-| `Portfolio/Portfolio - Wallet.csv` | Cash per broker |
+| `Portfolio/Dashboard.csv` | Summary tab, exported values |
+| `Portfolio/Holdings.csv` | Per-ticker position and P/L |
+| `Portfolio/Transactions.csv` | The source log |
+| `Portfolio/Alerts.csv` | Drawdown monitor |
+| `Portfolio/Wallet.csv` | Cash per broker |
 
 The CSVs are exports, so they contain **values, not formulas**. Open the `.xlsx` or the live
 sheet if you want to see how a number is calculated.
 
 ---
 
-## `Portfolio - Transactions.csv`
+## `Transactions.csv`
 
 The input log. One row per trade.
 
@@ -75,7 +91,7 @@ free-portfolio bucket instead of the invested one.
 
 ---
 
-## `Portfolio - Holdings.csv`
+## `Holdings.csv`
 
 One row per ticker, derived from `Transactions`. Duplicate column names are USD/MYR pairs.
 
@@ -99,7 +115,7 @@ Tickers with `Total Invested = 0` are free shares; the Dashboard splits on that 
 
 ---
 
-## `Portfolio - Dashboard.csv`
+## `Dashboard.csv`
 
 Not a flat table — it is the layout of the tab, so most rows are labels with the value
 beside or below them.
@@ -121,7 +137,7 @@ free holdings, and one row per wallet.
 
 ---
 
-## `Portfolio - Alerts.csv`
+## `Alerts.csv`
 
 Drawdown monitor. Watches how far each ticker sits below its 52-week high.
 
@@ -136,7 +152,7 @@ Drawdown monitor. Watches how far each ticker sits below its 52-week high.
 
 ---
 
-## `Portfolio - Wallet.csv`
+## `Wallet.csv`
 
 Cash sitting in each broker, in USD and MYR.
 
@@ -156,7 +172,11 @@ Cash sitting in each broker, in USD and MYR.
 ```
 README.md
 Portfolio.xlsx
-dashboard.png
+Dashboard/
+  Total Net Worth.jpg
+  Invested Portfolio.jpg
+  Free Portfolio.jpg
+  Total Invested Portfolio.jpg
 Portfolio/
   Portfolio - Dashboard.csv
   Portfolio - Holdings.csv
