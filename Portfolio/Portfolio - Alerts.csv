@@ -1,0 +1,7 @@
+Ticker,Current Price,52-Week High,Drop from High,Status,Alert
+KO,$97.5900,$100.5600,-2.95%,Normal,Off
+JNJ,$273.9400,$290.2500,-5.62%,🔔 Notice: Down 5%+,Off
+O,$60.2500,$67.9400,-11.32%,🔔 Notice: Down 10%+,Off
+VOO,$658.8700,$718.4700,-8.30%,🔔 Notice: Down 5%+,On
+QQQ,$633.9300,$762.8600,-16.90%,🔔 Notice: Down 15%+,On
+MSFT,$489.9300,$559.1500,-12.38%,🔔 Notice: Down 10%+,On
