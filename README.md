@@ -1,8 +1,9 @@
-# Portfolio Tracker
+# 📊 Portfolio Tracker
 
 ![Google Sheets](https://img.shields.io/badge/Google%20Sheets-34A853?logo=googlesheets&logoColor=white)
 ![Multi-currency](https://img.shields.io/badge/multi--currency-MYR%20%2B%20USD-blue)
 ![Live prices](https://img.shields.io/badge/prices-GOOGLEFINANCE-brightgreen)
+![Alerts](https://img.shields.io/badge/alerts-Apps%20Script-f4b400)
 
 A multi-currency portfolio tracker built in Google Sheets. Enter each trade once — every
 position, cost basis, fee, FX conversion, wallet balance and drawdown alert is derived from
@@ -17,7 +18,7 @@ that single log.
 
 ---
 
-## Why this exists
+## 💡 Why this exists
 
 If you invest across borders, most trackers fail in one of three ways:
 
@@ -34,9 +35,9 @@ actually paid; current value uses today's rate. The gap between the two is the r
 
 ---
 
-## Screenshots
+## 📸 Screenshots
 
-### Total net worth
+### 🏦 Total net worth
 
 ![Total Net Worth](Dashboard/Total%20Net%20Worth.jpg)
 
@@ -45,7 +46,7 @@ cash sitting in each broker — with capital deployed shown alongside. The bar c
 each bucket against total capital so you can see at a glance how much of your net worth is
 actually working.
 
-### Invested portfolio
+### 📈 Invested portfolio
 
 ![Invested Portfolio](Dashboard/Invested%20Portfolio.jpg)
 
@@ -53,7 +54,7 @@ Positions bought with your own cash: current value, gain/loss in both money and 
 and an allocation pie. This is the part of the portfolio where cost basis is tracked, so
 these are the only positions that can show a real profit or loss.
 
-### Free portfolio
+### 🎁 Free portfolio
 
 ![Free Portfolio](Dashboard/Free%20Portfolio.jpg)
 
@@ -61,7 +62,7 @@ Holdings acquired at zero cost — free shares, sign-up rewards, referral bonuse
 no cost basis, so they can't show a percentage gain; they simply add their full market value
 to net worth. Kept separate so they don't distort the return on money you actually put in.
 
-### Total invested portfolio
+### 💰 Total invested portfolio
 
 ![Total Invested Portfolio](Dashboard/Total%20Invested%20Portfolio.jpg)
 
@@ -71,7 +72,7 @@ with the market, only when you buy or sell.
 
 ---
 
-## How it works
+## ⚙️ How it works
 
 ```
 Transactions  ──▶  Holdings  ──▶  Dashboard
@@ -97,7 +98,30 @@ never get re-valued at a later rate.
 
 ---
 
-## Reference
+## 🚨 Automated alerts
+
+`code.gs` is a Google Apps Script that emails you when a watched position drops past a new
+threshold — so you don't have to sit on the sheet watching red numbers.
+
+**Setup**
+
+1. In the sheet: **Extensions → Apps Script**, paste `code.gs`, **Save**.
+2. On the `Alerts` tab, set the `Alert` column to `On` for the tickers you want watched.
+3. **Triggers** (clock icon) → **Add trigger** → function `checkPortfolioAlerts` →
+   *Time-driven* → *Hour timer* → **Save**.
+
+**What it does**
+
+- 🔍 Only tickers with `Alert = On` are checked.
+- 🔁 It emails once per **new** threshold, not every hour — a position parked at −12% won't
+  spam you.
+- 🧠 Last-alerted state is remembered per ticker in `ScriptProperties`.
+- ✅ When a ticker recovers to `Normal`, its memory resets and the next drop alerts again.
+- 🛡️ Rows showing `#N/A` (a `GOOGLEFINANCE` hiccup) are skipped instead of firing a false alarm.
+
+---
+
+## 📚 Reference
 
 <details>
 <summary><b>Transactions</b> — the input log, one row per trade</summary>
@@ -179,7 +203,7 @@ The CSV is the tab's layout, so most rows are labels with the value beside or be
 | `52-Week High` | `GOOGLEFINANCE(Ticker, "high52")` |
 | `Drop from High` | `(Current − High) ÷ High` |
 | `Status` | Banded label in 5% steps: `Normal`, notice from −5% to −20%, warning from −25% to −45%, alert from −50% down |
-| `Alert` | `On` / `Off` — whether this ticker is being watched |
+| `Alert` | `On` / `Off` — whether this ticker is watched by the script |
 
 </details>
 
@@ -199,7 +223,7 @@ The CSV is the tab's layout, so most rows are labels with the value beside or be
 
 ---
 
-## Using a different base currency
+## 💱 Using a different base currency
 
 MYR is the base currency here. To switch, three things change:
 
@@ -214,10 +238,24 @@ stored on each row.
 
 ---
 
-## Repo layout
+## 🗺️ Roadmap
+
+- 📱 **A real app** — move off Sheets so the tracker works on mobile without the
+  spreadsheet's formula limits and recalc lag.
+- 📸 **Screenshot import** — upload a broker confirmation, OCR it, and write the
+  transaction row automatically. That removes the last manual step.
+- 🎯 **Per-position thresholds** — today every ticker shares the same 5% bands. Next: a
+  custom drop threshold per ticker, plus a rebalancing alert when a position drifts from its
+  target weight. A 3% move on a volatile name shouldn't page you; a 3% move on a bond ETF
+  should.
+
+---
+
+## 📁 Repo layout
 
 ```
 README.md
+code.gs
 Portfolio.xlsx
 Dashboard/
   Total Net Worth.jpg
@@ -225,17 +263,19 @@ Dashboard/
   Free Portfolio.jpg
   Total Invested Portfolio.jpg
 Portfolio/
-  Portfolio - Dashboard.csv
-  Portfolio - Holdings.csv
-  Portfolio - Transactions.csv
-  Portfolio - Alerts.csv
-  Portfolio - Wallet.csv
+  Dashboard.csv
+  Holdings.csv
+  Transactions.csv
+  Alerts.csv
+  Wallet.csv
 ```
 
-## Notes
+## 📝 Notes
 
 - Data is a snapshot. Prices in the CSVs are frozen at export time; the live sheet keeps moving.
 - CSV export drops formulas, charts and formatting — open the `.xlsx` or the live sheet to
   see how a number is calculated.
 - USD positions are converted at the live rate; historical buys stay at the rate they were
   bought at.
+- Emoji in the `Status` column may not survive a CSV export depending on your download
+  path — the script matches on the `NN%` text, so alerts still work either way.
